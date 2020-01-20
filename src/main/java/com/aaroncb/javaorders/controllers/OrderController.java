@@ -1,9 +1,8 @@
 package com.aaroncb.javaorders.controllers;
 
-import com.aaroncb.javaorders.models.Agent;
-import com.aaroncb.javaorders.models.Customer;
-import com.aaroncb.javaorders.services.AgentService;
-import com.aaroncb.javaorders.services.CustomerService;
+import com.aaroncb.javaorders.models.Order;
+import com.aaroncb.javaorders.services.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,29 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agents")
-public class AgentController {
+@RequestMapping("/orders")
+public class OrderController {
 
     @Autowired
-    private AgentService agentService;
+    private OrderService orderService;
 
-    @GetMapping(value = "/agents",
+    @GetMapping(value = "/orders",
             produces = {"application/json"})
     public ResponseEntity<?> listAll()
     {
-        List<Agent> agents = agentService.findAllAgents();
-        return new ResponseEntity<>(agents,
+        List<Order> orders = orderService.findAllOrders();
+        return new ResponseEntity<>(orders,
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "/agent/{id}",
-            produces = {"application/json"})
-    public ResponseEntity<?> getAgentById(
+    @GetMapping(value = "/order/{id}",
+                produces = {"application/json"})
+    public ResponseEntity<?> getOrderById(
             @PathVariable
                     Long id)
     {
-        Agent agent = agentService.findAgentById(id);
-        return new ResponseEntity<>(agent,
-                HttpStatus.OK);
+        Order order = orderService.findOrderById(id);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 }

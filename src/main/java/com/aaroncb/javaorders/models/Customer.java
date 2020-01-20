@@ -25,7 +25,7 @@ public class Customer {
     private double outstandingamt;
     private String phone;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agentcode")
     private Agent agent;
 
@@ -143,18 +143,29 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Agent getAgentDetails() {
-        return this.agent;
+    public Agent getAgent() {
+        return agent;
     }
 
-    public void setAgentDetails(Agent agent) {
+    public void setAgent(Agent agent) {
         this.agent = agent;
     }
 
     @Override
-    public String toString()
-    {
-        return ", custcode=" + custcode + ", name=" + custname + ", city=" + custcity + ", working=" + workingarea + ", country=" + custcountry + ", grade=" + grade
-                + ", open=" + openingamt + ", rec " + receiveamt + ", pay " + paymentamt + ", out " + outstandingamt + ", phone " + phone + "\n";
+    public String toString() {
+        return "Customer{" +
+                "custcode=" + custcode +
+                ", custname='" + custname + '\'' +
+                ", custcity='" + custcity + '\'' +
+                ", workingarea='" + workingarea + '\'' +
+                ", custcountry='" + custcountry + '\'' +
+                ", grade='" + grade + '\'' +
+                ", openingamt=" + openingamt +
+                ", receiveamt=" + receiveamt +
+                ", paymentamt=" + paymentamt +
+                ", outstandingamt=" + outstandingamt +
+                ", phone='" + phone + '\'' +
+                ", agent='" + agent + '\'' +
+                '}';
     }
 }
