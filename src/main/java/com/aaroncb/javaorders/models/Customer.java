@@ -25,9 +25,14 @@ public class Customer {
     private double outstandingamt;
     private String phone;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agentcode")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties("customers")
     private Agent agent;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customers")
+    private List<Order> orders = new ArrayList<>();
 
     public Customer() {}
 
@@ -41,7 +46,8 @@ public class Customer {
                     Double payAmt,
                     Double outAmt,
                     String phone,
-                    Agent agent) {
+                    Agent agent,
+                    List orders) {
         this.custname = custname;
         this.custcity = custCity;
         this.workingarea = workingArea;
@@ -53,6 +59,7 @@ public class Customer {
         this.outstandingamt = outAmt;
         this.phone = phone;
         this.agent = agent;
+        this.orders = orders;
     }
 
     public long getCustomerID() {
@@ -151,6 +158,14 @@ public class Customer {
         this.agent = agent;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -165,7 +180,8 @@ public class Customer {
                 ", paymentamt=" + paymentamt +
                 ", outstandingamt=" + outstandingamt +
                 ", phone='" + phone + '\'' +
-                ", agent='" + agent + '\'' +
+                ", agent=" + agent +
+                ", orders=" + orders +
                 '}';
     }
 }

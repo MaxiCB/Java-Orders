@@ -9,4 +9,7 @@ public interface OrderService {
     List<Order> findAllOrders();
 
     Order findOrderById(long id);
+
+    List<Order> findAdvanceOrders(double amount);
+
 }

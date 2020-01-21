@@ -47,7 +47,7 @@
 --                       (23, 'Rangarappa', 'Bangalore', 'Bangalore', 'India', '2', 8000.00, 11000.00, 7000.00, 12000.00, 'AAAATGF', 1),
 --                       (24, 'Venkatpati', 'Bangalore', 'Bangalore', 'India', '2', 8000.00, 11000.00, 7000.00, 12000.00, 'JRTVFDD', 7),
 --                       (25, 'Sundariya', 'Chennai', 'Chennai', 'India', '3', 7000.00, 11000.00, 7000.00, 11000.00, 'PPHGRTS', 10);
---
+
 -- INSERT INTO ORDERS (ORDERNUM, ORDERAMOUNT, ADVANCEAMOUNT, CUSTCODE, ORDERDESCRIPTION)
 --             VALUES (1, 1000.00, 600.00, 13, 'SOD'),
 --                    (2, 3000.00, 500.00, 19, 'SOD'),
@@ -82,9 +82,9 @@
 --                            (10, 4),
 --                            (11, 2),
 --                            (12, 1);
---
--- /*
--- Must tell hibernate of the id numbers already used.
--- The number after with must be greater that the highest number id assigned.
---  */
--- --  alter sequence hibernate_sequence restart with 50;
+
+/*
+Must tell hibernate of the id numbers already used.
+The number after with must be greater that the highest number id assigned.
+ */
+--  alter sequence hibernate_sequence restart with 50;

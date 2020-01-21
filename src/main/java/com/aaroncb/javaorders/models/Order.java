@@ -1,5 +1,7 @@
 package com.aaroncb.javaorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,29 +9,27 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private long ordernum;
+
     private double orderamount;
     private double advanceamount;
-    private long customer;
-    @ManyToOne
-    @JoinColumn(name = "custcode")
-    private Customer cust;
-
     private String orderdescription;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "custcode", nullable = false)
+    @JsonIgnore
+    private Customer customer;
 
     public Order() {}
 
     public Order(double ordamount,
                  double advanceamount,
-                 long customer,
-                 Customer cust,
+                 Customer customer,
                  String orderdescription
                 ){
         this.orderamount = ordamount;
         this.advanceamount = advanceamount;
-        this.customer = cust.getCustomerID();
-        this.cust = cust;
+        this.customer = customer;
         this.orderdescription = orderdescription;
     }
 
@@ -58,11 +58,11 @@ public class Order {
     }
 
     public Customer getCustomer() {
-        return cust;
+        return customer;
     }
 
     public void setCustomer(Customer cust) {
-        this.cust = cust;
+        this.customer = cust;
     }
 
     public String getOrderdescription() {
@@ -79,7 +79,7 @@ public class Order {
                 "ordernum=" + ordernum +
                 ", ordamount=" + orderamount +
                 ", advanceamount=" + advanceamount +
-                ", customer=" + cust +
+                ", customer=" + customer +
                 ", orderdescription='" + orderdescription + '\'' +
                 '}';
     }

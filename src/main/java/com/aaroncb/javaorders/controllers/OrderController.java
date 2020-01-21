@@ -4,6 +4,8 @@ import com.aaroncb.javaorders.models.Order;
 import com.aaroncb.javaorders.services.OrderService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,5 +39,12 @@ public class OrderController {
     {
         Order order = orderService.findOrderById(id);
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/advanceamount",
+                produces = {"application/json"})
+    public ResponseEntity<?> getByAdvance(){
+        List <Order> orders = orderService.findAdvanceOrders(0.0);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 }
