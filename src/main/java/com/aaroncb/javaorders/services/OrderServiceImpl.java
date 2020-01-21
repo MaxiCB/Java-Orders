@@ -36,4 +36,10 @@ public class OrderServiceImpl implements OrderService {
         return ordersRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Order " + Long.toString(id) + " Not Found"));
     }
+
+    @Override
+    public List<Order> findAdvanceOrders(double amount) {
+        ArrayList<Order> orders = ordersRepository.findOrdersByAdvanceamountGreaterThan(amount);
+        return orders;
+    }
 }
